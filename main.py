@@ -9,7 +9,8 @@ class data:
     LANG = "ko"
     default_url = "https://www.bungie.net"
     season_info = [7, "SeasonOfTheLost"]
-    version = "3.4.0.2"
+    next_season_info = [7, "SeasonOfTheRisen"]
+    version = "3.4.0.4"
     next_version = "4.0.0"
     item_input = ""
 
@@ -89,6 +90,7 @@ async def on_message(message):
         embed.set_image(url="https://i.imgur.com/uzh0iAC.jpg")
         await message.channel.send(embed=embed)
     # https://www.bungie.net /7/ ko /Seasons/ SeasonOfTheLost
+    # New 16 Season: https://www.bungie.net /7/ ko /Seasons/ SeasonOfTheRisen
 
     # 달력 기능
     if message.content.startswith(data.prefix + '달력'):
