@@ -10,9 +10,10 @@ class Data:
     default_url = "https://www.bungie.net"
     season_info = [7, "SeasonOfTheRisen"]
     next_season_info = [7, "SeasonOfThe[ENCRYPTED]"]
-    version = "4.0.1"
-    next_version = "4.0.1.1"
+    version = "4.0.1.2"
+    next_version = "4.0.2"
     item_input = ""
+    suffix = ""
 
 
 client = commands.Bot(command_prefix=Data.prefix)
@@ -23,7 +24,7 @@ HEADERS = {"X-API_Key": ''}
 @client.event
 async def on_ready():
     # 서버 봇을 서버로 입장시키면 아래 메시지가 출력됩니다
-    print(f'{client.user} has connected to Discord!')
+    print(f'{client.user}님이 서버에 입장하셨어요!')
     print(client.user.name)
     print(client.user.id)
 
@@ -34,7 +35,7 @@ async def on_member_join(member):
     # 새로운 멤버가 입장하면 아래 내용을 출력합니다.
     channel = client.get_channel(123456789101112131)
     await member.send(f'{client.user.name} 님, 환영합니다.')
-    await channel.send('$help 또는 $h 명령어를 입력해 정보를 얻을 수 있습니다.')
+    await channel.send('!help 또는 !h 명령어를 입력해 Cerberus를 사용할 수 있습니다.')
 
 
 # Sending the messages from BOT for members
@@ -54,19 +55,18 @@ async def on_message(message):
         embed.set_thumbnail(url="https://i.imgur.com/USmMni8.png")
         await message.channel.send(embed=embed)
 
-    if message.content.startswith(Data.prefix + '클랜'):
+    if message.content.startswith(Data.prefix + '클랜') or message.content.startswith(Data.prefix + 'c'):
         await message.channel.send('서버에 오신 것을 환영합니다.')
 
-    if message.content.startswith(Data.prefix + '버전'):
+    if message.content.startswith(Data.prefix + '버전') or message.content.startswith(Data.prefix + 'v'):
         embed = discord.Embed(title="데스티니 가디언즈", description="최신 버전", color=0xC0E6EB)
         embed.set_footer(text=Data.version)
         await message.channel.Data(embed=embed)
 
     # 소식 기능
-    if message.content.startswith(Data.prefix + '소식'):
+    if message.content.startswith(Data.prefix + '소식') or message.content.startswith(Data.prefix + 'n'):
         embed = discord.Embed(title="새 소식", description="번지넷 새 소식에 대한 정보를 불러옵니다.", color=0xC0E6EB)
-        embed.add_field(name="test[0]", value="",
-                        inline=False)
+        embed.add_field(name="test[0]", value="", inline=False)
         await message.channel.send(embed=embed)
         # await message.channel.send('최신 소식은 번지넷 새 소식 탭에서 확인할 수 있습니다.\n' + data.default_url + "/News")
 
@@ -82,7 +82,8 @@ async def on_message(message):
         embed.set_image(url="https://i.imgur.com/uzh0iAC.jpg")
         await message.channel.send(embed=embed)
     # https://www.bungie.net /7/ ko /Seasons/ SeasonOfTheRisen
-    # New 17 Season: https://www.bungie.net /7/ ko /Seasons/ SeasonOfThe[ENCRYPTED]
+    # New 16 Season: https://www.bungie.net /7/ ko /Seasons/ SeasonOfThe[REDACTED]
+    # New 17 Season: https://www.bungie.net /7/ ko /Seasons/ SeasonOfThe[REDACTED]
 
     # 달력 기능
     if message.content.startswith(Data.prefix + '달력'):
@@ -96,10 +97,12 @@ async def on_message(message):
     if message.content.startswith(Data.prefix + '구매') or message.content.startswith(Data.prefix + 'currentDLC'):
         embed = discord.Embed(title="데스티니 가디언즈", description=Data.next_version, color=0xB6D7A8)
         embed.add_field(name="마녀 여왕", value="지금 구매" + "\n\n", inline=False)
-        embed.add_field(name="스탠다드 에디션 (44,500원)", value="마녀 여왕 DLC, 왕좌 세계 경이 고스트 의체, 수수께끼 경이 감정 표현, 전설 문양",
+        embed.add_field(name="스탠다드 에디션 (44,500원)",
+                        value="마녀 여왕 DLC, 왕좌 세계 경이 고스트 의체, 수수께끼 경이 감정 표현, 전설 문양",
                         inline=False)
-        embed.add_field(name="디럭스 에디션 (89,000원)", value="스탠다드 에디션 + "
-                                                        + "경이 기관단총, 촉매제, 장식, 16~19 시즌 패스, 5년차 던전 2종, 왕좌 세계 경이 참새",
+        embed.add_field(name="디럭스 에디션 (89,000원)",
+                        value="스탠다드 에디션 "
+                              + "경이 기관단총, 촉매제, 장식, 16~19 시즌 패스, 5년차 던전 2종, 왕좌 세계 경이 참새",
                         inline=False)
         embed.add_field(name="디럭스 에디션 30주년 번들 (109,000원)", value="디럭스 에디션 + "
                         + "새로운 던전, 걀라르호른 경이 로켓 발사기, 촉매제, 장식, 과거 번지 세계에서 영감을 받아 제작된 새로운 무기, "
