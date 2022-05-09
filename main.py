@@ -70,6 +70,14 @@ async def on_message(message):
         await message.channel.send(embed=embed)
         # await message.channel.send('최신 소식은 번지넷 새 소식 탭에서 확인할 수 있습니다.\n' + data.default_url + "/News")
 
+    # 변경사항 기능
+    if message.content.startswith(Data.prefix + '변경사항') or message.content.startswith(Data.prefix + 'l'):
+        embed = discord.Embed(title="데스티니 가디언즈 " + str(Data.version) + " " + str(Data.suffix),
+                              description="변경사항을 가져옵니다", color=0xC0E6EB)
+        embed.add_field(name="활동: 신봉자의 서약",
+                        value="마스터 난이도로 전투 완료 시 획득할 수 있는 보상 풀에서 직업 아이템을 제거했습니다.", inline=False)
+        await message.channel.send()
+
     # 시즌 기능
     if message.content.startswith(Data.prefix + '시즌'):
         embed = discord.Embed(title="데스티니 가디언즈", description=Data.version, color=0xC0E6EB)
