@@ -4,6 +4,19 @@ from discord.ext import commands
 
 
 # 추후 게임 업데이트 시 필요한 부분만 수정하도록 모듈화하기
+def set_auto_suffix():
+    if len(Data.version) == 7:
+        Data.suffix = "핫픽스"
+
+    elif len(Data.version) == 5:
+        Data.suffix = "업데이트"
+
+    elif len(Data.version) == 3:
+        Data.suffix = "업데이트"
+
+    return Data.suffix
+
+
 class Data:
     prefix = "!"
     LANG = "ko"
@@ -16,6 +29,7 @@ class Data:
     suffix = ""
 
 
+set_auto_suffix()
 client = commands.Bot(command_prefix=Data.prefix)
 HEADERS = {"X-API_Key": ''}
 
