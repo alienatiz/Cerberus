@@ -23,7 +23,7 @@ class Data:
     default_url = "https://www.bungie.net"
     season_info = [7, "SeasonOfTheRisen"]
     next_season_info = [7, "SeasonOfThe[ENCRYPTED]"]
-    version = "4.0.1.2"
+    version = "4.0.1.3"
     next_version = "4.0.2"
     item_input = ""
     suffix = ""
@@ -88,8 +88,8 @@ async def on_message(message):
     if message.content.startswith(Data.prefix + '변경사항') or message.content.startswith(Data.prefix + 'l'):
         embed = discord.Embed(title="데스티니 가디언즈 " + str(Data.version) + " " + str(Data.suffix),
                               description="변경사항을 가져옵니다", color=0xC0E6EB)
-        embed.add_field(name="활동: 신봉자의 서약",
-                        value="마스터 난이도로 전투 완료 시 획득할 수 있는 보상 풀에서 직업 아이템을 제거했습니다.", inline=False)
+        embed.add_field(name="업데이트 내용 보러가기",
+                        value="https://www.bungie.net/ko/Explore/Detail/News/51325", inline=False)
         await message.channel.send()
 
     # 시즌 기능
