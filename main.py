@@ -18,15 +18,18 @@ def set_auto_suffix():
 
 
 class Data:
-    prefix = "!"
-    LANG = "ko"
     default_url = "https://www.bungie.net"
-    season_info = [7, "SeasonOfTheRisen"]
-    next_season_info = [7, "SeasonOfThe[ENCRYPTED]"]
-    version = "4.0.1.3"
-    next_version = "4.0.2"
     item_input = ""
+    LANG = "ko"
+    next_season_info = [7, "SeasonOfThe[ENCRYPTED]"]
+    next_version = "4.0.2"
+    prefix = "!"
+    season_info = [7, "SeasonOfTheRisen"]
+    season_name = "되살아난 자"
+    season_number_current = "16"
+    season_number_next = "17"
     suffix = ""
+    version = "4.0.1.3"
 
 
 set_auto_suffix()
