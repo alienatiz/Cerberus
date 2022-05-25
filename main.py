@@ -3,15 +3,15 @@ import requests
 from discord.ext import commands
 
 
-# 추후 게임 업데이트 시 필요한 부분만 수정하도록 모듈화하기
+# 추후 게임 업데이트 시 필요한 부분만 모듈화
 def set_auto_suffix():
-    if len(Data.version) == 7:
+    if len(Data.version_current) == 7:
         Data.suffix = "핫픽스"
 
-    elif len(Data.version) == 5:
+    elif len(Data.version_current) == 5:
         Data.suffix = "업데이트"
 
-    elif len(Data.version) == 3:
+    elif len(Data.version_current) == 3:
         Data.suffix = "업데이트"
 
     return Data.suffix
@@ -19,17 +19,18 @@ def set_auto_suffix():
 
 class Data:
     default_url = "https://www.bungie.net"
+    game_title = "데스티니 가디언즈"
     item_input = ""
     LANG = "ko"
     next_season_info = [7, "SeasonOfThe[ENCRYPTED]"]
-    next_version = "4.0.2"
     prefix = "!"
-    season_info = [7, "SeasonOfTheRisen"]
-    season_name = "되살아난 자"
-    season_number_current = "16"
-    season_number_next = "17"
+    season_info = [7, "SeasonOfTheHaunted"]
+    season_name = "망령의 시즌"
+    season_number_current = "17"
+    season_number_next = "18"
     suffix = ""
-    version = "4.0.1.3"
+    version_current = "4.1.0"
+    version_next = "4.1.0.1"
 
 
 set_auto_suffix()
@@ -63,7 +64,7 @@ async def on_message(message):
 
     # 서버 봇 대화체 기본 기능
     if message.content.startswith(Data.prefix + '도움') or message.content.startswith(Data.prefix + 'h'):
-        embed = discord.Embed(title="Cerberus", description=Data.version, color=0xC0E6EB)
+        embed = discord.Embed(title="Cerberus", description=Data.version_current, color=0xC0E6EB)
         embed.add_field(name="버전", value=Data.prefix + "버전", inline=True)
         embed.add_field(name="소식", value=Data.prefix + "소식", inline=True)
         embed.add_field(name="시즌", value=Data.prefix + "시즌, " + Data.prefix + "달력", inline=True)
@@ -76,8 +77,8 @@ async def on_message(message):
         await message.channel.send('서버에 오신 것을 환영합니다.')
 
     if message.content.startswith(Data.prefix + '버전') or message.content.startswith(Data.prefix + 'v'):
-        embed = discord.Embed(title="데스티니 가디언즈", description="최신 버전", color=0xC0E6EB)
-        embed.set_footer(text=Data.version)
+        embed = discord.Embed(title=Data.game_title, description=Data.version_current, color=0xC0E6EB)
+        embed.set_footer(text=Data.version_current)
         await message.channel.Data(embed=embed)
 
     # 소식 기능
@@ -89,38 +90,33 @@ async def on_message(message):
 
     # 변경사항 기능
     if message.content.startswith(Data.prefix + '변경사항') or message.content.startswith(Data.prefix + 'l'):
-        embed = discord.Embed(title="데스티니 가디언즈 " + str(Data.version) + " " + str(Data.suffix),
+        embed = discord.Embed(title=Data.game_title + " " + str(Data.version_current) + " " + str(Data.suffix),
                               description="변경사항을 가져옵니다", color=0xC0E6EB)
         embed.add_field(name="업데이트 내용 보러가기",
-                        value="https://www.bungie.net/ko/Explore/Detail/News/51325", inline=False)
+                        value="https://www.bungie.net/ko/Explore/Detail/News/51380", inline=False)
         await message.channel.send()
 
     # 시즌 기능
     if message.content.startswith(Data.prefix + '시즌'):
-        embed = discord.Embed(title="데스티니 가디언즈", description=Data.version, color=0xC0E6EB)
-        embed.add_field(name="되살아난 자", value="마녀 여왕이 빛을 훔쳤습니다. 그녀의 군체 군단이 전장을 가로질러 진격해 옵니다. "
-                        + "화력팀의 힘으로 굴복시키기 전까지 그들은 분노를 멈추지 않을 것입니다. "
-                        + "패배한 적의 고스트가 조용히 주위를 맴돕니다. 이 전쟁이 끝나지 않을 것 같은 불길한 예감이 듭니다. "
-                        + "숨 돌릴 겨를도 없이, 눈앞에서 군단이 되살아나 다시 진격해 옵니다. "
-                        + "조심하세요, 수호자.", inline=False)
-        embed.set_thumbnail(url="https://i.imgur.com/EMyQKYf.png")
-        embed.set_image(url="https://i.imgur.com/uzh0iAC.jpg")
+        embed = discord.Embed(title=Data.game_title, description=Data.version_current, color=0xC0E6EB)
+        embed.add_field(name=Data.season_name, value="힘, 타락, 복수.\n"
+                        + "칼루스가 욕망하는 대상은 오랜 세월 동안 여러 형태를 취해 왔습니다. "
+                        + "한때 풍요로웠지만 이제 버려지고 오염된 그의 우주선이 우리 은하계로 돌아왔습니다. "
+                        + "그 시선은 오직 달에 잠들어 있는 피라미드 함선이죠. ", inline=False)
+        embed.set_thumbnail(url="https://i.imgur.com/x2bBvIr.png")
+        embed.set_image(url="https://i.imgur.com/X7EWj0N.png")
         await message.channel.send(embed=embed)
-    # https://www.bungie.net /7/ ko /Seasons/ SeasonOfTheRisen
-    # New 16 Season: https://www.bungie.net /7/ ko /Seasons/ SeasonOfThe[REDACTED]
-    # New 17 Season: https://www.bungie.net /7/ ko /Seasons/ SeasonOfThe[REDACTED]
+    # https://www.bungie.net /7/ ko /Seasons/ SeasonOfTheHaunted
 
     # 달력 기능
     if message.content.startswith(Data.prefix + '달력'):
-        embed = discord.Embed(title="데스티니 가디언즈", description=Data.version, color=0xC0E6EB)
-        embed.add_field(name="되살아난 자 시즌", value="2022년 2월 23일 ~ 2022년 5월 25일", inline=False)
-        # embed.set_thumbnail(url="https://i.imgur.com/r7O87On.png")
-        # embed.set_image(url="https://i.imgur.com/23gfNU0.jpg")
+        embed = discord.Embed(title=Data.game_title, description=Data.version_current, color=0xC0E6EB)
+        embed.add_field(name=Data.season_name, value="2022년 5월 25일 ~ 2022년 8월 24일", inline=False)
         await message.channel.send(embed=embed)
 
     # 현재 확장팩 (DLC) 구매 가격 조회
     if message.content.startswith(Data.prefix + '구매') or message.content.startswith(Data.prefix + 'currentDLC'):
-        embed = discord.Embed(title="데스티니 가디언즈", description=Data.next_version, color=0xB6D7A8)
+        embed = discord.Embed(title=Data.game_title, description=Data.version_next, color=0xB6D7A8)
         embed.add_field(name="마녀 여왕", value="지금 구매" + "\n\n", inline=False)
         embed.add_field(name="스탠다드 에디션 (44,500원)",
                         value="마녀 여왕 DLC, 왕좌 세계 경이 고스트 의체, 수수께끼 경이 감정 표현, 전설 문양",
@@ -144,7 +140,7 @@ async def on_message(message):
 
     # 아이템 검색 기능
     if message.content.startswith(Data.prefix + '아이템' + Data.item_input):
-        embed = discord.Embed(title="데스티니 가디언즈", description=Data.version, color=0xC0E6EB)
+        embed = discord.Embed(title=Data.game_title, description=Data.version_current, color=0xC0E6EB)
         embed.add_field(name=Data.item_input, value="", inline=False)
 
     # 암상인 줄 기능
