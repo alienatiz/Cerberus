@@ -29,8 +29,8 @@ class Data:
     season_number_current = "17"
     season_number_next = "18"
     suffix = ""
-    version_current = "4.1.0"
-    version_next = "4.1.0.1"
+    version_current = "4.1.5"
+    version_next = "4.1.5.1"
 
 
 set_auto_suffix()
@@ -93,7 +93,7 @@ async def on_message(message):
         embed = discord.Embed(title=Data.game_title + " " + str(Data.version_current) + " " + str(Data.suffix),
                               description="변경사항을 가져옵니다", color=0xC0E6EB)
         embed.add_field(name="업데이트 내용 보러가기",
-                        value="https://www.bungie.net/ko/Explore/Detail/News/51380", inline=False)
+                        value="https://www.bungie.net/ko/Explore/Detail/News/51593", inline=False)
         await message.channel.send()
 
     # 시즌 기능
