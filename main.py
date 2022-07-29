@@ -35,6 +35,8 @@ class Data:
 
 set_auto_suffix()
 client = commands.Bot(command_prefix=Data.prefix)
+
+# It will be rebooted to new not.
 HEADERS = {"X-API_Key": ''}
 
 
@@ -135,7 +137,7 @@ async def on_message(message):
 
     # 레이드 기능
     if message.content.startswith(Data.prefix + '모집'):
-        # 특정 채널에다가 모집 투표 글 업로드
+        # 특정 채널에 모집 투표 글 업로드
         await message.channel.send()
 
     # 아이템 검색 기능
@@ -146,7 +148,7 @@ async def on_message(message):
     # 암상인 줄 기능
     if message.content.startswith(Data.prefix + '줄'):
         xur_url = "https://www.bungie.net/Platform/Destiny/Advisors/Xur/"
-        typehash = 6
+        type_hash = 6
         r = requests.get(xur_url, headers=HEADERS)
 
         print("\n\n\n번지넷에 연결 중입니다: " + xur_url + "\n")
@@ -172,7 +174,7 @@ async def on_message(message):
 
             for myItem in my_sale_items:
                 hash_id = str(myItem['item']['itemHash'])
-                hash_request_string = base_url + "Manifest/" + str(typehash) + "/" + hash_id
+                hash_request_string = base_url + "Manifest/" + str(type_hash) + "/" + hash_id
                 res = requests.get(hash_request_string, headers=HEADERS)
                 item_name = res.json()['Response']['data']['inventoryItem']['itemName']
                 await message.channel.send(item_name)
